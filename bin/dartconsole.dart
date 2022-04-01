@@ -36,7 +36,12 @@ void main(){
     _model.forEach(print);
 
 
-
+    // Union and Intersection
+    var arr = [1, 2, 3, 4, 5, 6];
+    var arr2 = [1, 2, 7, 8, 9, 10];
+    var set1 = arr.toSet().union(arr2.toSet());
+    var set2 = arr.toSet().intersection(arr2.toSet());
+    set2.forEach(print);
 
 
 }
