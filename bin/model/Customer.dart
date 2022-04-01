@@ -9,7 +9,7 @@ class Customer {
 
   @override
   String toString() {
-    return 'Customer{id: $id, customerName: $customerName, age: $age, area: $area, Orders: $orders}';
+    return 'Customer{id: $id, customerName: $customerName, age: $age, area: $area, orders: $orders}';
   }
 }
 
