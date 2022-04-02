@@ -1,67 +1,124 @@
-import '../bin/model/Customer.dart';
+List<String> names = [
+  'Adeel',
+  'Haseeb',
+  'Naveed',
+  'Khurram',
+  'Mudssar',
+  'Ahmer',
+  'Faisal',
+  'Habib',
+  'Ali',
+  'Zubair'
+];
+const numbers = [1, 3, 56, 66, 68, 80, 99, 105, 450];
 
-void main(){
-  List<Customer> _modell = customers;
-  var _model;
+void main() {
+  checkFirst(names);
+  printNames(names);
+  bool find = naiveContains(5, numbers);
+  print(find);
 
-  // _model = _modell.where((element) => element.age! < 20).toList();
-  // print(_model);
-   //_model = _modell.where((element) => element.age! < 20).toList();
-    //_model = _modell.where((element) => element.age! > 20 && element.id! > 5).toList();
-    //_model = _modell.map((e) => e.orders).toList();
-    //_model = _modell.map((e) => e.id).toList();
-    //_model = _modell.map((e) => e.customerName!.toUpperCase()).toList();
-    //_model = _modell.map((e) => {"Name": e.customerName!.toUpperCase(), "Age": e.age}).toList();
-    // _model =_modell.map((e) => {"name": e.customerName, "age": e.age}).toList();
-    // _model.forEach((c) => print("Name is : ${c['name'].toUpperCase()} :::: and Age is : ${c['age']}")); // outPut
-    //_model = _modell.where((element) => element.age! > 25).map((e) => {"Name": e.customerName, "Age": e.age}).toList();
-    //_model = _modell.expand((c) => c.orders!).where((e) => e.orderTotal! > 2000); //!=[]
-      // _model = _modell.expand((c) => c.orders!).where((e) => e.orderTotal! > 2000).map((e) => e.orderTotal); // finding in orders Array(only Order Total)
-    //_model = _modell.where((e) => e.age! > 25 && e.id! < 8).expand((element) => element.orders!).map((e) => e.orderTotal).toList();
-    //_model = _modell.where((e) => e.age! > 25 && e.id! < 8).expand((element) => element.orders!).where((e) => e.orderTotal! > 2000).map((e) => {e.orderID, e.orderTotal}).toList();
-    // _model = _modell.expand((e) => e.orders!).where((o) => o.orderDate!.isAfter(DateTime(2018))).toList();  // filter by date or year
-    //_model = _modell.expand((element) => element.orders!).map((e) => e.orderDate).where((o) => o!.isBefore(DateTime(2017))).toList();
-    //_model = _modell.expand((element) =>element.orders!.map((e) => {element.customerName, e.orderTotal})).toList();
-    //_model = _modell.expand((element) => element.orders!.where((o) => o.orderTotal! > 3500).map((e) => {element.customerName, e.orderTotal})).toList();
-    //_model = _modell.expand((element) => element.orders!.where((o) => o.orderTotal! > 3500).map((e) => {"Name": element.customerName,"Total": e.orderTotal,"Date": e.orderDate})).toList();
-    // _model = _modell.expand((element) => element.orders!.where((o) => o.orderTotal! > 3500).map((e) => {"Name": element.customerName,"Total": e.orderTotal,"Date": e.orderDate})).skip(3).toList();
-    //_model = _modell.expand((element) => element.orders!.where((o) => o.orderTotal! > 3500).map((e) => {"Name": element.customerName,"Total": e.orderTotal,"Date": e.orderDate})).take(3).toList();
-    // _model = _modell.expand((element) => element.orders!.where((o) => o.orderTotal! > 3500).map((e) => e.orderTotal).takeWhile((value) => value! > 4000)).toList();
-    //_model = _modell.expand((element) => element.orders!.where((o) => o.orderTotal! > 3500).map((e) => e.orderTotal).takeWhile((value) => value! > 4000)).first;  //(first or last)  // return only singel record
-    // _model = _modell.expand((element) => element.orders!.where((o) => o.orderTotal! > 3500).map((e) => e.orderTotal).takeWhile((value) => value! > 4000)).elementAt(0); // return only singel record
-    //print(_model);
-    _model = _modell
-        .expand((element) => element.orders!
-            .where((o) => o.orderTotal! > 1500).map((e) => {"Name": element.customerName,"Total": e.orderTotal,"Date": e.orderDate})).toList();
-    _model.forEach(print);
+  bool betterFind = betterNaiveContains(44, numbers);
+  print(betterFind);
 
 
-    // Union and Intersection
-    var arr = [1, 2, 3, 4, 5, 6];
-    var arr2 = [1, 2, 7, 8, 9, 10];
-    var set1 = arr.toSet().union(arr2.toSet());
-    var set2 = arr.toSet().intersection(arr2.toSet());
-    set2.forEach(print);
+  final start = DateTime.now();
+final sum = sumFromOneTo(10000);
+final end = DateTime.now();
+final time = end.difference(start);
+print(sum);
+print(time);
 
+
+print("=======================");
+  final start1 = DateTime.now();
+final sum1 = betterSumFromOneTo(10000);
+final end1 = DateTime.now();
+final time1 = end.difference(start);
+print(sum1);
+print(time1);
+
+
+print(fillList(20));
+
+print(stuffList(10));
 
 }
 
+//=================================================
+//=================================================
+//=================================================
+
+//constant time .. O(1)
+void checkFirst(List<String> names) {
+  if (names.isNotEmpty) {
+    print(names.first);
+  } else {
+    print('no names');
+  }
+}
+
+// Linear Time  .. O(n) .. as data increase it's take more time.
+void printNames(List<String> names) {
+  for (final name in names) {
+    print(name);
+  }
+}
+
+// Qiuadratic Time .. O(n²)
+void printMoreNames(List<String> names) {
+  for (final _ in names) {
+    for (final name in names) {
+      print(name);
+    }
+  }
+}
+
+//naive algorithm /  Logarithmic Time ... O(n)?
+bool naiveContains(int value, List<int> list) {
+  for (final element in list) {
+    if (element == value) return true;
+  }
+  return false;
+}
+
+// naive algorithm   .. o(n)? improve
+bool betterNaiveContains(int value, List<int> list) {
+  if (list.isEmpty) return false;
+  final middleIndex = list.length ~/ 2;
+  if (value > list[middleIndex]) {
+    for (var i = middleIndex; i < list.length; i++) {
+      if (list[i] == value) return true;
+    }
+  } else {
+    for (var i = middleIndex; i >= 0; i--) {
+      if (list[i] == value) return true;
+    }
+  }
+  return false;
+}
 
 
+int sumFromOneTo(int n) {
+  var sum = 0;
+  for (var i = 1; i <= n; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+int betterSumFromOneTo(int n) {
+return n * (n + 1) ~/ 2;
+}
 
 
+// O(1)
+List<String> fillList(int length) {
+  return List.filled(length, 'a');
+}
 
-// void main() {
-//   Stream<int> stream = boatStream(10);
-//   stream.listen((data) =>{
-//     print('Received Boat No $data'),
-//   });
-// }
 
-// Stream<int> boatStream (int val) async*{
-//   for(int i=1; i<=val; i++){
-//     print("sent boat number $i");
-//     await Future.delayed(Duration(seconds: 1),);
-//     yield i;
-//   }
-// }
+//Quadratic space complexity:
+List<String> stuffList(int length) {
+  return List.filled(length, 'a' * length);
+}
